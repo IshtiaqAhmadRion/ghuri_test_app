@@ -31,7 +31,7 @@ class Body extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                print("click");
+                
               },
               child: Text(
                 "Create a new Account",
