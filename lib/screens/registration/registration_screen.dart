@@ -10,6 +10,20 @@ class RegScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0XFFE8E8E8),
+      appBar: AppBar(
+          elevation: 1,
+          leading: BackButton(
+            color: Colors.black,
+          ),
+          backgroundColor: Colors.white,
+          title: Text(
+            "Sign Up",
+            style: TextStyle(
+              color: Colors.black87,
+              fontSize: 20,
+            ),
+          )),
       body: Body(),
     );
   }

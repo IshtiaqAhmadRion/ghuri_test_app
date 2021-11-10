@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:ghuri_test_app/screens/home/components/body.dart';
+
+import 'components/body.dart';
 
 class HomePage extends StatelessWidget {
   static String routeName = "/home";
