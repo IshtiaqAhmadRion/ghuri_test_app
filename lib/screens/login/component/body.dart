@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 
+import 'login_form.dart';
+
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
 
@@ -23,24 +25,19 @@ class Body extends StatelessWidget {
             SizedBox(
               height: screenHeight / 6,
             ),
-            Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: TextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      
-                      decoration: InputDecoration(
-                        labelText: "Mobile / Email",
-                        suffix: Icon(Icons.person),
-
-                        floatingLabelBehavior: FloatingLabelBehavior.auto
-                      ),
-                  ),
-                    )],
-                ))
+            LoginForm(formKey: _formKey, screenWidth: screenWidth),
+            SizedBox(
+              height: screenHeight / 10,
+            ),
+            GestureDetector(
+              onTap: () {
+                print("click");
+              },
+              child: Text(
+                "Create a new Account",
+                style: TextStyle(color: Colors.black54),
+              ),
+            ),
           ],
         ),
       ),
