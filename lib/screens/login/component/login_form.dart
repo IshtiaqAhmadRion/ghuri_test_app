@@ -47,7 +47,7 @@ class PasswordTextFormField extends StatelessWidget {
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.vpn_key),
           labelText: "Password",
-          hintText: "Enter your Mobile / Email",
+          hintText: "Enter Password",
           
           suffixIcon: Icon(Icons.remove_red_eye),
         ),

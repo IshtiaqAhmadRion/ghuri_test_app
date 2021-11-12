@@ -24,7 +24,9 @@ class RegScreen extends StatelessWidget {
               fontSize: 20,
             ),
           )),
-      body: Body(),
+      body: Body(
+        
+      ),
     );
   }
 }

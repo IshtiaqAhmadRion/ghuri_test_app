@@ -1,11 +1,10 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unused_local_variable, camel_case_types, deprecated_member_use
-
-import 'dart:convert';
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unused_local_variable, camel_case_types, deprecated_member_use, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:ghuri_test_app/api/ipinfo.dart';
 import 'package:ghuri_test_app/screens/home/home_screen.dart';
 import 'package:ghuri_test_app/screens/registration/registration_screen.dart';
-import 'package:http/http.dart' as http;
+
 import 'login_form.dart';
 
 class Body extends StatefulWidget {
@@ -16,15 +15,10 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
- Future getUserDate() async {
-    var response =
-        await http.get(Uri.https("jsonplaceholder.typicode.com", 'users'));
-    var jsonDate = jsonDecode(response.body);
-    List<User> users = [];
-    for (var u in jsonDate) {
-      User user = User(u["name"], u["email"], u["userNmae"]);
-      users.add(user);
-    }
+  @override
+  void initState() {
+    super.initState();
+    getData();
   }
 
   @override
@@ -58,8 +52,10 @@ class _BodyState extends State<Body> {
               padding: EdgeInsets.symmetric(horizontal: screenWidth / 3),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
-              onPressed: () => Navigator.pushNamed(context, HomePage.routeName),
-              color: Colors.yellow,
+              onPressed: () {
+                Navigator.pushNamed(context, HomePage.routeName);
+              },
+              color: Colors.yellow[700],
               child: Text(
                 "LOGIN",
                 style: TextStyle(
@@ -73,12 +69,6 @@ class _BodyState extends State<Body> {
       ),
     );
   }
-}
-
-class User {
-  final String name, email, userNmae;
-
-  User(this.name, this.email, this.userNmae);
 }
 
 class CreateNewAccount extends StatelessWidget {
