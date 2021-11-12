@@ -75,7 +75,6 @@ class EmailTextFormField extends StatelessWidget {
           prefixIcon: Icon(Icons.person),
           labelText: "Mobile / Email",
           hintText: "Enter your Mobile / Email",
-          //suffix: Icon(Icons.person),
         ),
       ),
     );
