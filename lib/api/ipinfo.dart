@@ -1,21 +1,24 @@
+// ignore_for_file: avoid_print, dead_code
 
-
-// ignore_for_file: avoid_print
-
+import 'package:ghuri_test_app/models/ip_data_model.dart';
 import 'package:http/http.dart';
-Future getData() async{
-  var request = Request('GET', Uri.parse('https://jsonplaceholder.typicode.com/users'));
 
+Future<IpDataModel?> getData() async {
+  var request =
+      Request('GET', Uri.parse('https://jsonplaceholder.typicode.com/users'));
 
-StreamedResponse response = await request.send();
+  StreamedResponse response = await request.send();
 
-if (response.statusCode == 200) {
-  print(await response.stream.bytesToString());
-}
-else {
-  print(response.reasonPhrase);
-}
+  if (response.statusCode == 200) {
+    var body = await response.stream.bytesToString();
+    IpDataModel encodedData = ipDataModelFromJson(body) as IpDataModel;
+    return encodedData;
 
+    print(body);
+  } else {
+    print(response.reasonPhrase);
+    return null;
+  }
 }
 
 

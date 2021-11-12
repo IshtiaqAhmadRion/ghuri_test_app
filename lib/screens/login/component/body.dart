@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unused_local_variable, camel_case_types, deprecated_member_use, avoid_print
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unused_local_variable, camel_case_types, deprecated_member_use, avoid_print, unrelated_type_equality_checks
 
 import 'package:flutter/material.dart';
 import 'package:ghuri_test_app/api/ipinfo.dart';
@@ -53,6 +53,7 @@ class _BodyState extends State<Body> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               onPressed: () {
+               
                 Navigator.pushNamed(context, HomePage.routeName);
               },
               color: Colors.yellow[700],
