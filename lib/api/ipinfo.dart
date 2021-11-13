@@ -13,7 +13,7 @@ Future<IpDataModel?> getData() async {
 
   if (response.statusCode == 200) {
     var body = await response.stream.bytesToString();
-    IpDataModel encodedData = ipDataModelFromJson(body);
+    IpDataModel encodedData = IpDataModel.fromRawJson(body);
     print(body);
     return encodedData;
   } else {

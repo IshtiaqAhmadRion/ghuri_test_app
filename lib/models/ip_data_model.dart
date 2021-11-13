@@ -6,10 +6,6 @@
 
 import 'dart:convert';
 
-IpDataModel ipDataModelFromJson(String str) => IpDataModel.fromJson(json.decode(str));
-
-String ipDataModelToJson(IpDataModel data) => json.encode(data.toJson());
-
 class IpDataModel {
     IpDataModel({
         required this.ip,
@@ -27,19 +23,54 @@ class IpDataModel {
         required this.location,
     });
 
-    String ip;
-    String type;
-    String continentCode;
-    String continentName;
-    String countryCode;
-    String countryName;
-    String regionCode;
-    String regionName;
-    String city;
-    String zip;
-    double latitude;
-    double longitude;
-    Location location;
+    final String ip;
+    final String type;
+    final String continentCode;
+    final String continentName;
+    final String countryCode;
+    final String countryName;
+    final String regionCode;
+    final String regionName;
+    final String city;
+    final String zip;
+    final double latitude;
+    final double longitude;
+    final Location location;
+
+    IpDataModel copyWith({
+        required String ip,
+        required String type,
+        required String continentCode,
+        required String continentName,
+        required String countryCode,
+        required String countryName,
+        required String regionCode,
+        required String regionName,
+        required String city,
+        required String zip,
+        required double latitude,
+        required double longitude,
+        required Location location,
+    }) => 
+        IpDataModel(
+            ip: ip,
+            type: type,
+            continentCode: continentCode,
+            continentName: continentName,
+            countryCode: countryCode,
+            countryName: countryName,
+            regionCode: regionCode,
+            regionName: regionName,
+            city: city,
+            zip: zip,
+            latitude: latitude,
+            longitude: longitude,
+            location: location,
+        );
+
+    factory IpDataModel.fromRawJson(String str) => IpDataModel.fromJson(json.decode(str));
+
+    String toRawJson() => json.encode(toJson());
 
     factory IpDataModel.fromJson(Map<String, dynamic> json) => IpDataModel(
         ip: json["ip"] == null ? null : json["ip"],
@@ -86,14 +117,39 @@ class Location {
         required this.isEu,
     });
 
-    int geonameId;
-    String capital;
-    List<Language> languages;
-    String countryFlag;
-    String countryFlagEmoji;
-    String countryFlagEmojiUnicode;
-    String callingCode;
-    bool isEu;
+    final int geonameId;
+    final String capital;
+    final List<Language> languages;
+    final String countryFlag;
+    final String countryFlagEmoji;
+    final String countryFlagEmojiUnicode;
+    final String callingCode;
+    final bool isEu;
+
+    Location copyWith({
+        required int geonameId,
+        required String capital,
+        required List<Language> languages,
+        required String countryFlag,
+        required String countryFlagEmoji,
+        required String countryFlagEmojiUnicode,
+        required String callingCode,
+        required bool isEu,
+    }) => 
+        Location(
+            geonameId: geonameId,
+            capital:  capital,
+            languages: languages,
+            countryFlag: countryFlag,
+            countryFlagEmoji: countryFlagEmoji,
+            countryFlagEmojiUnicode: countryFlagEmojiUnicode,
+            callingCode: callingCode,
+            isEu: isEu,
+        );
+
+    factory Location.fromRawJson(String str) => Location.fromJson(json.decode(str));
+
+    String toRawJson() => json.encode(toJson());
 
     factory Location.fromJson(Map<String, dynamic> json) => Location(
         geonameId: json["geoname_id"] == null ? null : json["geoname_id"],
@@ -125,9 +181,24 @@ class Language {
         required this.native,
     });
 
-    String code;
-    String name;
-    String native;
+    final String code;
+    final String name;
+    final String native;
+
+    Language copyWith({
+        required String code,
+        required String name,
+        required String native,
+    }) => 
+        Language(
+            code: code,
+            name: name,
+            native: native,
+        );
+
+    factory Language.fromRawJson(String str) => Language.fromJson(json.decode(str));
+
+    String toRawJson() => json.encode(toJson());
 
     factory Language.fromJson(Map<String, dynamic> json) => Language(
         code: json["code"] == null ? null : json["code"],
