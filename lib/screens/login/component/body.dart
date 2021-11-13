@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:ghuri_test_app/api/ipinfo.dart';
+import 'package:ghuri_test_app/models/ip_data_model.dart';
 import 'package:ghuri_test_app/screens/home/home_screen.dart';
 import 'package:ghuri_test_app/screens/registration/registration_screen.dart';
 
@@ -15,10 +16,11 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  late Future<IpDataModel?> data;
   @override
   void initState() {
     super.initState();
-    getData();
+    data = getData();
   }
 
   @override
@@ -26,6 +28,7 @@ class _BodyState extends State<Body> {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
+    String _email;
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -38,6 +41,19 @@ class _BodyState extends State<Body> {
             LoginLogo(screenWidth: screenWidth),
             SizedBox(
               height: screenHeight / 6,
+            ),
+            FutureBuilder<IpDataModel?>(
+              future: data,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  print("Data Data");
+                  return Text(snapshot.data!.countryName);
+                }
+                return CircularProgressIndicator();
+                // return snapshot.hasData
+                //     ? Text (snapshot.data!.countryName.toString())
+                //     : CircularProgressIndicator();
+              },
             ),
             LoginForm(formKey: _formKey, screenWidth: screenWidth),
             SizedBox(
@@ -53,7 +69,6 @@ class _BodyState extends State<Body> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               onPressed: () {
-               
                 Navigator.pushNamed(context, HomePage.routeName);
               },
               color: Colors.yellow[700],

@@ -1,142 +1,143 @@
-
-
-
-
-
 // To parse this JSON data, do
 //
 //     final ipDataModel = ipDataModelFromJson(jsonString);
 
-// ignore_for_file: prefer_if_null_operators, unnecessary_null_comparison, prefer_null_aware_operators, prefer_typing_uninitialized_variables, empty_constructor_bodies
+// ignore_for_file: prefer_if_null_operators, prefer_null_aware_operators, unnecessary_null_comparison
 
 import 'dart:convert';
 
-List<IpDataModel> ipDataModelFromJson(String str) => List<IpDataModel>.from(json.decode(str).map((x) => IpDataModel.fromJson(x)));
+IpDataModel ipDataModelFromJson(String str) => IpDataModel.fromJson(json.decode(str));
 
-String ipDataModelToJson(List<IpDataModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String ipDataModelToJson(IpDataModel data) => json.encode(data.toJson());
 
 class IpDataModel {
     IpDataModel({
-        required this.id,
-        required this.name,
-        required this.username,
-        required this.email,
-        required this.address,
-        required this.phone,
-        required this.website,
-        required this.company,
+        required this.ip,
+        required this.type,
+        required this.continentCode,
+        required this.continentName,
+        required this.countryCode,
+        required this.countryName,
+        required this.regionCode,
+        required this.regionName,
+        required this.city,
+        required this.zip,
+        required this.latitude,
+        required this.longitude,
+        required this.location,
     });
 
-    int id;
-    String name;
-    String username;
-    String email;
-    Address address;
-    String phone;
-    String website;
-    Company company;
+    String ip;
+    String type;
+    String continentCode;
+    String continentName;
+    String countryCode;
+    String countryName;
+    String regionCode;
+    String regionName;
+    String city;
+    String zip;
+    double latitude;
+    double longitude;
+    Location location;
 
     factory IpDataModel.fromJson(Map<String, dynamic> json) => IpDataModel(
-        id: json["id"] == null ? null : json["id"],
-        name: json["name"] == null ? null : json["name"],
-        username: json["username"] == null ? null : json["username"],
-        email: json["email"] == null ? null : json["email"],
-        address: json["address"] == null ? null :json["address"],
-        phone: json["phone"] == null ? null : json["phone"],
-        website: json["website"] == null ? null : json["website"],
-        company: json["company"] == null ? null : json["company"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "name": name == null ? null : name,
-        "username": username == null ? null : username,
-        "email": email == null ? null : email,
-        "address": address == null ? null : address.toJson(),
-        "phone": phone == null ? null : phone,
-        "website": website == null ? null : website,
-        "company": company == null ? null : company.toJson(),
-    };
-}
-
-class Address {
-   var fromJson;
-
-    Address({
-        required this.street,
-        required this.suite,
-        required this.city,
-        required this.zipcode,
-        required this.geo,
-    });
-
-    String street;
-    String suite;
-    String city;
-    String zipcode;
-    Geo geo;
-
-    factory Address.fromJson(Map<String, dynamic> json) => Address(
-        street: json["street"] == null ? null : json["street"],
-        suite: json["suite"] == null ? null : json["suite"],
+        ip: json["ip"] == null ? null : json["ip"],
+        type: json["type"] == null ? null : json["type"],
+        continentCode: json["continent_code"] == null ? null : json["continent_code"],
+        continentName: json["continent_name"] == null ? null : json["continent_name"],
+        countryCode: json["country_code"] == null ? null : json["country_code"],
+        countryName: json["country_name"] == null ? null : json["country_name"],
+        regionCode: json["region_code"] == null ? null : json["region_code"],
+        regionName: json["region_name"] == null ? null : json["region_name"],
         city: json["city"] == null ? null : json["city"],
-        zipcode: json["zipcode"] == null ? null : json["zipcode"],
-        geo: json["geo"] == null ? null : json["geo"],
+        zip: json["zip"] == null ? null : json["zip"],
+        latitude: json["latitude"] == null ? null : json["latitude"].toDouble(),
+        longitude: json["longitude"] == null ? null : json["longitude"].toDouble(),
+        location: json["location"] == null ? null : json["location"],
     );
 
     Map<String, dynamic> toJson() => {
-        "street": street == null ? null : street,
-        "suite": suite == null ? null : suite,
+        "ip": ip == null ? null : ip,
+        "type": type == null ? null : type,
+        "continent_code": continentCode == null ? null : continentCode,
+        "continent_name": continentName == null ? null : continentName,
+        "country_code": countryCode == null ? null : countryCode,
+        "country_name": countryName == null ? null : countryName,
+        "region_code": regionCode == null ? null : regionCode,
+        "region_name": regionName == null ? null : regionName,
         "city": city == null ? null : city,
-        "zipcode": zipcode == null ? null : zipcode,
-        "geo": geo == null ? null : geo.toJson(),
+        "zip": zip == null ? null : zip,
+        "latitude": latitude == null ? null : latitude,
+        "longitude": longitude == null ? null : longitude,
+        "location": location == null ? null : location.toJson(),
     };
 }
 
-class Geo {
-   var fromJson;
-
-    Geo({
-        required this.lat,
-        required this.lng,
+class Location {
+    Location({
+        required this.geonameId,
+        required this.capital,
+        required this.languages,
+        required this.countryFlag,
+        required this.countryFlagEmoji,
+        required this.countryFlagEmojiUnicode,
+        required this.callingCode,
+        required this.isEu,
     });
 
-    String lat;
-    String lng;
+    int geonameId;
+    String capital;
+    List<Language> languages;
+    String countryFlag;
+    String countryFlagEmoji;
+    String countryFlagEmojiUnicode;
+    String callingCode;
+    bool isEu;
 
-    factory Geo.fromJson(Map<String, dynamic> json) => Geo(
-        lat: json["lat"] == null ? null : json["lat"],
-        lng: json["lng"] == null ? null : json["lng"],
+    factory Location.fromJson(Map<String, dynamic> json) => Location(
+        geonameId: json["geoname_id"] == null ? null : json["geoname_id"],
+        capital: json["capital"] == null ? null : json["capital"],
+        languages: json["languages"] == null ? null : json["languages"].map((x) => Language.fromJson(x)),
+        countryFlag: json["country_flag"] == null ? null : json["country_flag"],
+        countryFlagEmoji: json["country_flag_emoji"] == null ? null : json["country_flag_emoji"],
+        countryFlagEmojiUnicode: json["country_flag_emoji_unicode"] == null ? null : json["country_flag_emoji_unicode"],
+        callingCode: json["calling_code"] == null ? null : json["calling_code"],
+        isEu: json["is_eu"] == null ? null : json["is_eu"],
     );
 
     Map<String, dynamic> toJson() => {
-        "lat": lat == null ? null : lat,
-        "lng": lng == null ? null : lng,
+        "geoname_id": geonameId == null ? null : geonameId,
+        "capital": capital == null ? null : capital,
+        "languages": languages == null ? null : List<dynamic>.from(languages.map((x) => x.toJson())),
+        "country_flag": countryFlag == null ? null : countryFlag,
+        "country_flag_emoji": countryFlagEmoji == null ? null : countryFlagEmoji,
+        "country_flag_emoji_unicode": countryFlagEmojiUnicode == null ? null : countryFlagEmojiUnicode,
+        "calling_code": callingCode == null ? null : callingCode,
+        "is_eu": isEu == null ? null : isEu,
     };
 }
 
-class Company {
-  var fromJson;
-
-    Company({
+class Language {
+    Language({
+        required this.code,
         required this.name,
-        required this.catchPhrase,
-        required this.bs,
+        required this.native,
     });
 
+    String code;
     String name;
-    String catchPhrase;
-    String bs;
+    String native;
 
-    factory Company.fromJson(Map<String, dynamic> json) => Company(
+    factory Language.fromJson(Map<String, dynamic> json) => Language(
+        code: json["code"] == null ? null : json["code"],
         name: json["name"] == null ? null : json["name"],
-        catchPhrase: json["catchPhrase"] == null ? null : json["catchPhrase"],
-        bs: json["bs"] == null ? null : json["bs"],
+        native: json["native"] == null ? null : json["native"],
     );
 
     Map<String, dynamic> toJson() => {
+        "code": code == null ? null : code,
         "name": name == null ? null : name,
-        "catchPhrase": catchPhrase == null ? null : catchPhrase,
-        "bs": bs == null ? null : bs,
+        "native": native == null ? null : native,
     };
 }
