@@ -21,6 +21,7 @@ class _BodyState extends State<Body> {
   void initState() {
     super.initState();
     data = getData();
+    
   }
 
   @override
@@ -46,7 +47,7 @@ class _BodyState extends State<Body> {
               future: data,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  print("Data Data");
+                  print(snapshot.data);
                   return Text(snapshot.data!.countryName);
                 }
                 return CircularProgressIndicator();
