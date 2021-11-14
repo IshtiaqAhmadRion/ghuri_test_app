@@ -49,7 +49,7 @@ class _BodyState extends State<Body> {
                 if (snapshot.hasData) {
                   print(snapshot.data!.regionName);
                   print(snapshot.data!.regionName);
-                  return Text(snapshot.data!.continentName!);
+                  return Text(snapshot.data!.city!);
                 }
                 return CircularProgressIndicator();
                 // return snapshot.hasData

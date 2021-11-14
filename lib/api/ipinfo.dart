@@ -22,7 +22,7 @@ class IpApi {
     }
   }
 }
-
+  
 
 
 
