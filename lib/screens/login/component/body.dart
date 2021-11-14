@@ -16,12 +16,9 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  late Future<IpDataModel?> data;
   @override
   void initState() {
     super.initState();
-    data = getData();
-    
   }
 
   @override
@@ -43,12 +40,16 @@ class _BodyState extends State<Body> {
             SizedBox(
               height: screenHeight / 6,
             ),
-            FutureBuilder<IpDataModel?>(
-              future: data,
+            FutureBuilder<IpDataModel>(
+              future: IpApi.getData(),
               builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  print(snapshot.error.toString());
+                }
                 if (snapshot.hasData) {
-                  print(snapshot.data);
-                  return Text(snapshot.data!.countryName);
+                  print(snapshot.data!.regionName);
+                  print(snapshot.data!.regionName);
+                  return Text(snapshot.data!.continentName!);
                 }
                 return CircularProgressIndicator();
                 // return snapshot.hasData
