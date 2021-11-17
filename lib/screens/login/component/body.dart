@@ -26,8 +26,7 @@ class _BodyState extends State<Body> {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
-    String _email;
-
+    
     return SafeArea(
       child: SingleChildScrollView(
         child: Column(
@@ -52,9 +51,6 @@ class _BodyState extends State<Body> {
                   return Text(snapshot.data!.city!);
                 }
                 return CircularProgressIndicator();
-                // return snapshot.hasData
-                //     ? Text (snapshot.data!.countryName.toString())
-                //     : CircularProgressIndicator();
               },
             ),
             LoginForm(formKey: _formKey, screenWidth: screenWidth),
@@ -71,10 +67,12 @@ class _BodyState extends State<Body> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               onPressed: () {
+                 
                 Navigator.pushNamed(context, HomePage.routeName);
               },
               color: Colors.yellow[700],
               child: Text(
+               
                 "LOGIN",
                 style: TextStyle(
                   fontSize: screenWidth / 25,
