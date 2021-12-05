@@ -1,8 +1,5 @@
 // confirm pass complete need to work shop name and go on
 
-
-
-
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, override_on_non_overriding_member, prefer_final_fields, unused_field, annotate_overrides, avoid_print, deprecated_member_use, unused_local_variable
 
 import 'package:flutter/material.dart';
@@ -25,7 +22,11 @@ class _RegistrationFormState extends State<RegistrationForm> {
       email = '',
       mobile = '',
       pass = '',
-      confirmPass = '';
+      confirmPass = '',
+      shopName = '',
+      shopUrl = '',
+      city = '',
+      address = '';
 
   bool _isClicked = false;
   Widget build(BuildContext context) {
@@ -106,6 +107,13 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   TextFormField buildAddressFormField() {
     return TextFormField(
+      onSaved: (newValue) => address = newValue!,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return kAdressNullError;
+        }
+        return null;
+      },
       decoration: InputDecoration(
         hintText: "Address",
         prefixIcon: Padding(
@@ -118,6 +126,13 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   TextFormField buildCityFormField() {
     return TextFormField(
+      onSaved: (newValue) => city = newValue!,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return kCityNullError;
+        }
+        return null;
+      },
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
         hintText: "City",
@@ -131,6 +146,15 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   TextFormField buildShopLinkFormField() {
     return TextFormField(
+      onSaved: (newValue) => shopUrl = newValue!,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return kShopLinkNullError;
+        } else if (!urlValidatorRegExp.hasMatch(value)) {
+          return kValidUrlError;
+        }
+        return null;
+      },
       decoration: InputDecoration(
         hintText: "Shop Online Link (Optional)",
         prefixIcon: Padding(
@@ -143,6 +167,13 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   TextFormField buildShopNameFormField() {
     return TextFormField(
+      onSaved: (newValue) => shopName = newValue!,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return kShopNameNullError;
+        }
+        return null;
+      },
       decoration: InputDecoration(
         hintText: "Shop Name",
         prefixIcon: Padding(
