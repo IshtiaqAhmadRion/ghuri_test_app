@@ -1,6 +1,13 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, override_on_non_overriding_member, prefer_final_fields, unused_field, annotate_overrides
+// confirm pass complete need to work shop name and go on
+
+
+
+
+// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, override_on_non_overriding_member, prefer_final_fields, unused_field, annotate_overrides, avoid_print, deprecated_member_use, unused_local_variable
 
 import 'package:flutter/material.dart';
+import 'package:ghuri_test_app/constants.dart';
+import 'package:ghuri_test_app/screens/login/login_screen.dart';
 
 class RegistrationForm extends StatefulWidget {
   RegistrationForm({Key? key}) : super(key: key);
@@ -12,9 +19,18 @@ class RegistrationForm extends StatefulWidget {
 class _RegistrationFormState extends State<RegistrationForm> {
   @override
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  
+  // ignore: prefer_typing_uninitialized_variables
+  String fName = '',
+      lName = '',
+      email = '',
+      mobile = '',
+      pass = '',
+      confirmPass = '';
 
+  bool _isClicked = false;
   Widget build(BuildContext context) {
+    var screenHeight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
     return Form(
       key: _formKey,
       child: Padding(
@@ -32,6 +48,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 buildLastNameTextFormField(),
               ],
             ),
+            buildEmailFormField(),
             buildMobileFormField(),
             buildPasswordFormField(),
             buildConfirmPassFormField(),
@@ -39,6 +56,48 @@ class _RegistrationFormState extends State<RegistrationForm> {
             buildShopLinkFormField(),
             buildCityFormField(),
             buildAddressFormField(),
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Checkbox(
+                  checkColor: Colors.white,
+                  activeColor: Colors.yellow[700],
+                  value: _isClicked,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      _isClicked = value!;
+                    });
+                  },
+                ),
+                SizedBox(width: 30),
+                Text("I agree the terms and condition of \nGHURI Parcel")
+              ],
+            ),
+            SizedBox(
+              height: screenHeight / 10,
+            ),
+            FlatButton(
+              height: screenWidth / 8,
+              padding: EdgeInsets.symmetric(horizontal: screenWidth / 3),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  Navigator.pushNamed(context, LoginScreen.routeName);
+                }
+              },
+              color: Colors.yellow[700],
+              child: Text(
+                "SIGN UP",
+                style: TextStyle(
+                  fontSize: screenWidth / 25,
+                  color: Colors.black87,
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -96,6 +155,15 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   TextFormField buildConfirmPassFormField() {
     return TextFormField(
+      onSaved: (newValue) => confirmPass = newValue!,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return kPassNullError;
+        } else if (value != pass) {
+          return kMathcPassError;
+        }
+        return null;
+      },
       obscureText: true,
       decoration: InputDecoration(
         hintText: "Confirm Password",
@@ -109,7 +177,16 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
-     
+      onSaved: (newValue) => pass = newValue!,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return kPassNullError;
+        } else if (value.length < 8) {
+          return kShortPassError;
+        }
+
+        return null;
+      },
       obscureText: true,
       decoration: InputDecoration(
         hintText: "Password",
@@ -123,6 +200,15 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   TextFormField buildMobileFormField() {
     return TextFormField(
+      onSaved: (value) => mobile = value!,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return kNumberError;
+        } else if (value.length < 11 || value.length > 11) {
+          return kValidNumberError;
+        }
+        return null;
+      },
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
         hintText: "Mobile",
@@ -136,6 +222,15 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
+      onSaved: (value) => email = value!,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return kEmailNullError;
+        } else if (!emailValidatorRegExp.hasMatch(value)) {
+          return kInvalidEmailError;
+        }
+        return null;
+      },
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         hintText: "Email",
@@ -150,6 +245,13 @@ class _RegistrationFormState extends State<RegistrationForm> {
   Expanded buildLastNameTextFormField() {
     return Expanded(
       child: TextFormField(
+        onSaved: (value) => lName = value!,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return kLastNameError;
+          }
+          return null;
+        },
         keyboardType: TextInputType.name,
         decoration: InputDecoration(
           hintText: "Last Name",
@@ -165,6 +267,13 @@ class _RegistrationFormState extends State<RegistrationForm> {
   Expanded buildFirstNameTextFormField() {
     return Expanded(
       child: TextFormField(
+        onSaved: (value) => fName = value!,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return kFirstNameError;
+          }
+          return null;
+        },
         keyboardType: TextInputType.name,
         decoration: InputDecoration(
           hintText: 'First Name',
