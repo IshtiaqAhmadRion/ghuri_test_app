@@ -190,7 +190,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
       validator: (value) {
         if (value!.isEmpty) {
           return kPassNullError;
-        } else if (value != pass) {
+        } else if (pass == value) {
+          print(pass);
           return kMathcPassError;
         }
         return null;
