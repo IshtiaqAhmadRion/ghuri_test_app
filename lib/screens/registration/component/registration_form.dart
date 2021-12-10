@@ -190,7 +190,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
       validator: (value) {
         if (value!.isEmpty) {
           return kPassNullError;
-        } else if (pass == value) {
+        } else if (pass != value) {
           print(pass);
           return kMathcPassError;
         }
@@ -218,6 +218,11 @@ class _RegistrationFormState extends State<RegistrationForm> {
         }
 
         return null;
+      },
+      onChanged: (value) {
+        if (value.isNotEmpty && value.length >= 8) {
+          pass = value; 
+        }
       },
       obscureText: true,
       decoration: InputDecoration(
